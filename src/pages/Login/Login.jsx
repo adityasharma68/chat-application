@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import './Login.css';
 import assets from '../../assets/assets'; // Adjust the path as necessary
+import { signup } from '../../config/firebase';
 
 const Login = () => {
+
   useEffect(() => {
     const signUpButton = document.getElementById('signUp');
     const signInButton = document.getElementById('signIn');
@@ -20,22 +22,31 @@ const Login = () => {
     };
   }, []);
 
+  const [currentState,setCurrState] = useState("Create Account");
+  // const [userName, SetUser] = useState("");
+  // const [email,setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+
   return (
     <div className="login-container">
       <div className="container" id="container">
         <div className="form-container sign-up-container">
           <form className="login-form" action="#">
-            <h1>Create Account</h1>
+            <h1>{currentState}</h1>
             <div className="social-container">
               <a href="#" className="social"><i className="fab fa-facebook-f"></i></a>
               <a href="#" className="social"><i className="fab fa-google-plus-g"></i></a>
               <a href="#" className="social"><i className="fab fa-linkedin-in"></i></a>
             </div>
             <span>or use your email for registration</span>
-            <input type="text" placeholder="Name" className="login-input" />
+            {currentState === "Sign up"? <input type="text" placeholder="Username" className="login-input" /> : null}
             <input type="email" placeholder="Email" className="login-input" />
             <input type="password" placeholder="Password" className="login-input" />
-            <button className="login-button" id="login-Signup">Sign Up</button>
+            <button className="login-button" id="login-Signup">{currentState === "Sign up"?"Create account":"Login Now"}</button>
+            <div className="login-term">
+              <input type='checkbox' />
+              <p>Agree to terms of use & privacy policy</p>
+            </div>
           </form>
         </div>
 
